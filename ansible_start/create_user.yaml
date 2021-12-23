@@ -1,0 +1,20 @@
+---
+- name: Playbook
+  hosts: host1
+  user: vagrant
+  become: yes
+  become_user: root
+  tasks:
+  - name: add the user {{ item }}
+    user:
+      name: {{ item }}
+      comment: soy {{ item }}
+      append: yes
+    loop:
+      - user1
+      - user2
+      - user3
+      - user4
+      - user5
+      - user6
+      - user6

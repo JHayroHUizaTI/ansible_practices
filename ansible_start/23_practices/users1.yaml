@@ -1,0 +1,45 @@
+---
+- name: Dic. 23 practicando
+  hosts: all
+  become: yes
+  become_user: root
+  user: vagrant
+  vars:
+    motd_warming: 'Warming: use by acme employees ONLY'
+    users:
+      - cb_user1
+      - cb_user2
+      - cb_user3
+      - cb_user4
+      - cb_user5
+      - cb_user6
+      - cb_user7
+      - cb_user8
+      - cb_user9
+      - cb_user10
+      - cb_user11
+      - cb_user12
+      - cb_user13
+    groups:
+      - developers
+      - operation
+      - testing
+  tasks:
+  - name: setup a motd
+    copy:
+      dest: /etc/motd
+      content: '{{ motd_warming }}'
+  
+  - name: create new groups
+    group:
+      name: '{{ item }}'
+    with_items: '{{ groups }}'
+  
+    
+  - name: create new users
+    user: 
+      name: "{{ item[0] }}"
+      group: "{{ item[1] }}"
+    with_nested:
+      - "{{ users }}"
+      - "{{ groups }}"

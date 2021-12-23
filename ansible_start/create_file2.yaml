@@ -1,0 +1,23 @@
+--- 
+- name: Create file use with_items
+  hosts: host1
+  become_user: root
+  become: yes
+  user: vagrant
+  vars:
+    names:
+      - file1.txt
+      - file2.txt
+      - file3.txt
+      - file4.txt
+      - file5.txt
+      - file6.txt
+      - file7.txt
+      - file8.txt
+  tasks:
+  - name: create files
+    file:
+      path: "/tmp/{{ item }}"
+      state: touch
+      mode: 0755
+    with_items: " {{ names }}"

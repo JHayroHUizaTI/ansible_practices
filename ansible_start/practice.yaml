@@ -1,0 +1,53 @@
+---
+- name: Playbook
+  hosts: host1
+  user: vagrant
+  become: yes
+  become_user: root
+  tasks:
+    - name: Create a directory 
+      file:
+        path: /tmp/test
+        state: directory
+        mode: 0755
+    
+    - name: Touch the same file
+      file:
+        path: /tmp/test3.txt
+        state: touch
+        mode: 0755
+    
+    - name: remove the file
+      file:
+        path: /tmp/test2.txt
+        state: absent
+        mode: 0655 
+
+      
+
+
+
+
+    # - name: copy mime.types file
+    #   lineinfile:
+    #     path: /tmp/test2.txt
+    #     line: "vamos peru gente como es"
+    #     create: yes
+    
+    # - name: add service
+    #   blockinfile:
+    #     state: present
+    #     dest: /tmp/test2.txt
+    #     content: |
+    #       line 1
+    #       line 2
+    #       line 3
+  
+    # - name: firewalld enabled
+    #   service:
+    #     name: firewalld
+    #     enabled: true
+    #     state: started
+    
+
+
