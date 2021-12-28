@@ -1,0 +1,27 @@
+---
+- name: install and configure syslog-ng service
+  hosts: ansible
+  become: true
+  become_user: root
+  tasks:
+  - name: add repo epel
+    yum_repository: 
+      name: epel
+      description: EPEL YUM repo
+      baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    when: 
+      ansible_distribution == "CentOS"
+  - name: install syslog service
+    yum:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - syslog-ng
+      - syslog-ng-libdbi
+  
+  - name: start/enable rsyslogs 
+    service:
+      name: rsyslog
+      state: stopped 
+    

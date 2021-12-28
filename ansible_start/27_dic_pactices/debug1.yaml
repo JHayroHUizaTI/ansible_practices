@@ -1,0 +1,16 @@
+---
+- name: practicando con debug
+  hosts: host1
+  become: true
+  become_user: root
+  tasks:
+  - name: Crear archivo
+    copy:
+      content: "vamos peru ps mano"
+      dest: /tmp/copi1.txt
+    register: file
+
+  - name: usando debug
+    debug:
+      var: file
+      msg: "usando debug ps mano"
