@@ -1,0 +1,36 @@
+--- 
+- name: install freeipa
+  hosts: host4
+  become: yes
+  become_user: root
+  vars:
+    freeipa_server_admin_password: Password
+    freeipa_server_domain: pitagoras.com
+    freeipa_server_ds_password: Password
+    freeipa_server_fqdn: freeipa.pitagoras.com
+    freeipa_server_ip: 192.168.1.54
+    freeipa_server_realm: PITAGORAS.COM
+  tasks:
+  - name: stop firewalld
+    service:
+      name: firewalld
+      state: stopped
+  - name: 
+    yum:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - ipa-server
+      - ipa-server-dns
+      - bind-dyndb-ldap
+    register: install_ipa_server
+  - debug:
+      var: install_ipa_server
+  
+  - name: uses command ipa_server
+    raw: "ipa-server-install --domain={{ freeipa_server_domain }} --realm={{ freeipa_server_realm }} --ds-password=password --adminpassword=password --hostname={{ freeipa_server_fqdn }} --ip-address={{ freeipa_server_ip }} --reversezone=1.168.192.in-addr.arpa. --forwarder=8.8.8.8 --allow-zone-overlap --setup-dns --unattended"
+    register: command_freeipa
+  - debug: 
+      var: command_freeipa
+  

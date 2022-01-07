@@ -13,4 +13,3 @@
   - name: usando debug
     debug:
       var: file
-      msg: "usando debug ps mano"

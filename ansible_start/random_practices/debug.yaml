@@ -1,0 +1,20 @@
+---
+- name: playbook module debug
+  hosts: all
+  user: vagrant
+  become: yes
+  become_user: root
+  vars:
+    mivariable: "valor"
+    milista:
+      - "valor lista 1"
+      - "valor lista 2"
+      - "valor lista 3"
+  tasks:
+  - name: Mostrar el valor de mivariable
+    debug: var=mivariable
+  - name: Mostrar el valor de milista
+    debug: msg="Elementos de la lista, {{ milista }}" 
+  - name: practicando con el module debug
+    debug: 
+      msg: "como es gente va o no"
